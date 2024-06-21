@@ -14,12 +14,9 @@ struct WebView: UIViewRepresentable {
 
     func makeUIView(context: Context) -> WKWebView {
         let wkwebView = WKWebView()
-//        let request = URLRequest(url: viewModel.url)
+        
         wkwebView.customUserAgent = "MyApp/1.0"
-//        wkwebView.load(request)
-        
-//        NotificationCenter.default.addObserver(self,/* selector: #selector(self.urlLoaded(notification:)), name: Notification.Name("com.app.ios.application.url.opened"), object: nil)*/
-        
+
         wkwebView.navigationDelegate = context.coordinator
         
         return wkwebView
@@ -50,12 +47,6 @@ struct WebView: UIViewRepresentable {
                 UIApplication.shared.open(url, options: [:])
             }
         }
-
-//        @objc func urlLoaded(notification: Notification) {
-//          let url = notification.userInfo!["url"]! as! URL
-////            self.load(url: url)
-//          self.WebView(URLRequest(url: url))
-//        }
         
     }
     
@@ -63,12 +54,6 @@ struct WebView: UIViewRepresentable {
         Coordinator(self)
     }
     
-//    NotificationCenter.default.addObserver(self, selector: #selector(self.urlLoaded(notification:)), name: Notification.Name("com.app.ios.application.url.opened"), object: nil)
-//
-//    @objc func urlLoaded(notification: Notification) {
-//      let url = notification.userInfo!["url"]! as! URL
-//      self.webView.load(URLRequest(url: url))
-//    }
 }
 
 
