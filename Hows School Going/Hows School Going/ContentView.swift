@@ -9,16 +9,20 @@ import SwiftUI
 
 struct ContentView: View {
     @StateObject private var webViewModel = WebViewModel(url: URL(string: "https://www.google.com")!)
-    
-    let pub = NotificationCenter.default
-            .publisher(for: NSNotification.Name("com.myeducationdata.Hows-School-Going.opened"))
+    @State private var url: URL?
     
     var body: some View {
         WebView(viewModel: webViewModel)
             // .edgesIgnoringSafeArea(.all) // This makes sure the WebView covers the entire screen
             .onAppear(perform: onLoad)
-            .onReceive(pub) { (output) in
-                self.onReceive()
+            .onReceive(NotificationCenter.default.publisher(for: .didReceiveUniversalLink)) { notification in
+                if let url = notification.object as? URL {
+                    print("ContentView: Received universal link: \(url)")
+                    webViewModel.url = url
+                    // Perform any additional actions you need
+                } else {
+                    print("ContentView: Notification received without URL")
+                }
             }
     }
     

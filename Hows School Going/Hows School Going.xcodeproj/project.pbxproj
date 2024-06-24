@@ -48,6 +48,7 @@
 		635E02362C25027A00987F9B /* Hows_School_GoingUITestsLaunchTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Hows_School_GoingUITestsLaunchTests.swift; sourceTree = "<group>"; };
 		635E02432C2502D100987F9B /* WebViewModal.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WebViewModal.swift; sourceTree = "<group>"; };
 		635E02452C25031800987F9B /* WebView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WebView.swift; sourceTree = "<group>"; };
+		635E02472C25E8B700987F9B /* Hows School Going.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = "Hows School Going.entitlements"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -98,6 +99,7 @@
 		635E02182C25027800987F9B /* Hows School Going */ = {
 			isa = PBXGroup;
 			children = (
+				635E02472C25E8B700987F9B /* Hows School Going.entitlements */,
 				635E02192C25027800987F9B /* Hows_School_GoingApp.swift */,
 				635E02452C25031800987F9B /* WebView.swift */,
 				635E021B2C25027800987F9B /* ContentView.swift */,
@@ -427,12 +429,15 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CODE_SIGN_ENTITLEMENTS = "Hows School Going/Hows School Going.entitlements";
+				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_ASSET_PATHS = "\"Hows School Going/Preview Content\"";
 				DEVELOPMENT_TEAM = HY7RUVBN5A;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.education";
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
@@ -443,8 +448,9 @@
 					"@executable_path/Frameworks",
 				);
 				MARKETING_VERSION = 1.0;
-				PRODUCT_BUNDLE_IDENTIFIER = "com.myeducationdata..Hows-School-Going";
+				PRODUCT_BUNDLE_IDENTIFIER = "com.myeducationdata.Hows-School-Going";
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE_SPECIFIER = "";
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
@@ -456,12 +462,15 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CODE_SIGN_ENTITLEMENTS = "Hows School Going/Hows School Going.entitlements";
+				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_ASSET_PATHS = "\"Hows School Going/Preview Content\"";
 				DEVELOPMENT_TEAM = HY7RUVBN5A;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.education";
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
@@ -472,8 +481,9 @@
 					"@executable_path/Frameworks",
 				);
 				MARKETING_VERSION = 1.0;
-				PRODUCT_BUNDLE_IDENTIFIER = "com.myeducationdata..Hows-School-Going";
+				PRODUCT_BUNDLE_IDENTIFIER = "com.myeducationdata.Hows-School-Going";
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE_SPECIFIER = "";
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
