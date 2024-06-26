@@ -12,8 +12,7 @@ struct ContentView: View {
     
     var body: some View {
         LoadingView(isShowing: self.$webViewModel.isLoading) {
-            WebView(viewModel: webViewModel)
-                .onAppear(perform: onLoad)
+            WebView(viewModel: webViewModel, updatedUrl: webViewModel.url)
                 .onReceive(NotificationCenter.default.publisher(for: .didReceiveUniversalLink)) { notification in
                     if let url = notification.object as? URL {
                         print("ContentView: Received universal link: \(url)")
@@ -24,14 +23,6 @@ struct ContentView: View {
                     }
                 }
         }
-    }
-    
-    func onLoad(){
-        let _ = print("on load")
-    }
-    
-    func onReceive() {
-        let _ = print("on receive")
     }
 }
 

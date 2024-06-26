@@ -12,43 +12,51 @@ import WebKit
 struct WebView: UIViewRepresentable {
     @ObservedObject var viewModel: WebViewModel
     let webView = WKWebView()
+    var updatedUrl: URL?
+    
+    fileprivate let defaultURL:URL = URL(string: "https://staging.doral.myeducationdata.com/")!
     
     func makeCoordinator() -> WebView.Coordinator {
         Coordinator(self.viewModel)
     }
     
     func makeUIView(context: Context) -> WKWebView {
-        self.webView.customUserAgent = "HowsSchoolGoingIOS/1.0"
+        webView.customUserAgent = "HowsSchoolGoingIOS/1.0"
 
-        self.webView.allowsBackForwardNavigationGestures = true
+        webView.allowsBackForwardNavigationGestures = true
         
-        self.webView.navigationDelegate = context.coordinator
+        webView.navigationDelegate = context.coordinator
 
-//        self.webView.load(URLRequest(url: self.viewModel.url))
+        webView.scrollView.isScrollEnabled = true
 
-        return self.webView
+//        let _ = print("Run makeUIView: url: \(self.viewModel.url)")
+//        webView.load(URLRequest(url: self.viewModel.url))
+
+        return webView
     }
     
-//    func updateUIView(_ uiView: WKWebView, context: Context) {
-//        let _ = print("Run updateUIView")
-//        let request = URLRequest(url: viewModel.url)
-//
-//        uiView.load(request)
-//    }
+    fileprivate func load(url:URL?, in webView:WKWebView) {
+        
+        if let url = url {
+            print("load url....: \(url)")
+            let req = URLRequest(url: url)
+            webView.load(req)
+        } else {
+            print("load default url case...")
+            let req = URLRequest(url: defaultURL)
+            webView.load(req)
+        }
+        
+    }
     
-    func updateUIView(_ uiView: WKWebView, context: UIViewRepresentableContext<WebView>) {
-        let _ = print("Run updateUIView")
-        let _ = print(viewModel.url)
+    func updateUIView(_ uiView: WKWebView, context: Context) {
+        let _ = print("Run updateUIView: url: \(String(describing: updatedUrl))")
+        load(url: updatedUrl, in: uiView)
         
 //        viewModel.isLoading = true
-//        let request = URLRequest(url: viewModel.url)
-
-
+//        let request = URLRequest(url: self.newURL)
+//        
 //        uiView.load(request)
-    }
-    
-    func updateView(){
-        self.webView.load(URLRequest(url: self.viewModel.url))
     }
     
     class Coordinator: NSObject, WKNavigationDelegate {
@@ -63,6 +71,12 @@ struct WebView: UIViewRepresentable {
             self.viewModel.isLoading = false
         }
         
+        func webView(_ webView: WKWebView, didStartProvisionalNavigation navigation: WKNavigation!) {
+            print("Begin loading")
+            self.viewModel.isLoading = true
+        }
+        
+        
         func webView(_ webView: WKWebView, didReceiveServerRedirectForProvisionalNavigation navigation: WKNavigation!) {
             let _ = print("didReceiveServerRedirectForProvisionalNavigation")
             if let url = webView.url, url.absoluteString.starts(with: "https://accounts.google.com") {
@@ -72,21 +86,6 @@ struct WebView: UIViewRepresentable {
         }
     }
 
-//    class WebViewController: UIViewController, WKUIDelegate {
-//        var url: String? {
-//            didSet(oldValue) {
-//                if self.isViewLoaded {
-//                    let myRequest = URLRequest(url: URL(string: url!)!)
-//                    webView.load(myRequest)
-//                }
-//            }
-//        }
-//        
-////        @objc func refreshData() {
-//////            self.webView.load(URLRequest(url: self.viewModel.url))
-////
-////        }
-//    }
 }
 
 
