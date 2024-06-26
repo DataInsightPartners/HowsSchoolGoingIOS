@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		63364C222C2B935800291CED /* UIActivityIndicator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 63364C212C2B935800291CED /* UIActivityIndicator.swift */; };
+		63364C242C2B938E00291CED /* LoadingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 63364C232C2B938E00291CED /* LoadingView.swift */; };
 		635E021A2C25027800987F9B /* Hows_School_GoingApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 635E02192C25027800987F9B /* Hows_School_GoingApp.swift */; };
 		635E021C2C25027800987F9B /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 635E021B2C25027800987F9B /* ContentView.swift */; };
 		635E021E2C25027A00987F9B /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 635E021D2C25027A00987F9B /* Assets.xcassets */; };
@@ -36,6 +38,8 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		63364C212C2B935800291CED /* UIActivityIndicator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIActivityIndicator.swift; sourceTree = "<group>"; };
+		63364C232C2B938E00291CED /* LoadingView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoadingView.swift; sourceTree = "<group>"; };
 		635E02162C25027800987F9B /* Hows School Going.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Hows School Going.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		635E02192C25027800987F9B /* Hows_School_GoingApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Hows_School_GoingApp.swift; sourceTree = "<group>"; };
 		635E021B2C25027800987F9B /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
@@ -104,6 +108,8 @@
 				635E02452C25031800987F9B /* WebView.swift */,
 				635E021B2C25027800987F9B /* ContentView.swift */,
 				635E02432C2502D100987F9B /* WebViewModal.swift */,
+				63364C212C2B935800291CED /* UIActivityIndicator.swift */,
+				63364C232C2B938E00291CED /* LoadingView.swift */,
 				635E021D2C25027A00987F9B /* Assets.xcassets */,
 				635E021F2C25027A00987F9B /* Preview Content */,
 			);
@@ -267,8 +273,10 @@
 			files = (
 				635E02442C2502D100987F9B /* WebViewModal.swift in Sources */,
 				635E02462C25031800987F9B /* WebView.swift in Sources */,
+				63364C222C2B935800291CED /* UIActivityIndicator.swift in Sources */,
 				635E021C2C25027800987F9B /* ContentView.swift in Sources */,
 				635E021A2C25027800987F9B /* Hows_School_GoingApp.swift in Sources */,
+				63364C242C2B938E00291CED /* LoadingView.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

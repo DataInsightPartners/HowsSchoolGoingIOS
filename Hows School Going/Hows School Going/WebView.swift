@@ -11,35 +11,56 @@ import WebKit
 
 struct WebView: UIViewRepresentable {
     @ObservedObject var viewModel: WebViewModel
-
-    func makeUIView(context: Context) -> WKWebView {
-        let wkwebView = WKWebView()
-        
-        wkwebView.customUserAgent = "MyApp/1.0"
-
-        wkwebView.allowsBackForwardNavigationGestures = true
-        
-        wkwebView.navigationDelegate = context.coordinator
-        
-        return wkwebView
+    let webView = WKWebView()
+    
+    func makeCoordinator() -> WebView.Coordinator {
+        Coordinator(self.viewModel)
     }
     
-    func updateUIView(_ uiView: WKWebView, context: Context) {
-        let _ = print("Run updateUIView")
-        let request = URLRequest(url: viewModel.url)
+    func makeUIView(context: Context) -> WKWebView {
+        self.webView.customUserAgent = "HowsSchoolGoingIOS/1.0"
 
-        uiView.load(request)
-    }
-
-    class Coordinator: NSObject, WKNavigationDelegate {
-        let parent: WebView
+        self.webView.allowsBackForwardNavigationGestures = true
         
-        init(_ parent: WebView) {
-            self.parent = parent
+        self.webView.navigationDelegate = context.coordinator
+
+//        self.webView.load(URLRequest(url: self.viewModel.url))
+
+        return self.webView
+    }
+    
+//    func updateUIView(_ uiView: WKWebView, context: Context) {
+//        let _ = print("Run updateUIView")
+//        let request = URLRequest(url: viewModel.url)
+//
+//        uiView.load(request)
+//    }
+    
+    func updateUIView(_ uiView: WKWebView, context: UIViewRepresentableContext<WebView>) {
+        let _ = print("Run updateUIView")
+        let _ = print(viewModel.url)
+        
+//        viewModel.isLoading = true
+//        let request = URLRequest(url: viewModel.url)
+
+
+//        uiView.load(request)
+    }
+    
+    func updateView(){
+        self.webView.load(URLRequest(url: self.viewModel.url))
+    }
+    
+    class Coordinator: NSObject, WKNavigationDelegate {
+        let viewModel: WebViewModel
+        
+        init(_ viewModel: WebViewModel) {
+            self.viewModel = viewModel
         }
         
         func webView(_ webView: WKWebView, didFinish navigation: WKNavigation!) {
             print("Done loading")
+            self.viewModel.isLoading = false
         }
         
         func webView(_ webView: WKWebView, didReceiveServerRedirectForProvisionalNavigation navigation: WKNavigation!) {
@@ -49,13 +70,23 @@ struct WebView: UIViewRepresentable {
                 UIApplication.shared.open(url, options: [:])
             }
         }
-        
     }
-    
-    func makeCoordinator() -> WebView.Coordinator {
-        Coordinator(self)
-    }
-    
+
+//    class WebViewController: UIViewController, WKUIDelegate {
+//        var url: String? {
+//            didSet(oldValue) {
+//                if self.isViewLoaded {
+//                    let myRequest = URLRequest(url: URL(string: url!)!)
+//                    webView.load(myRequest)
+//                }
+//            }
+//        }
+//        
+////        @objc func refreshData() {
+//////            self.webView.load(URLRequest(url: self.viewModel.url))
+////
+////        }
+//    }
 }
 
 

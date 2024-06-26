@@ -10,6 +10,7 @@ import Combine
 
 class WebViewModel: ObservableObject {
     @Published var url: URL
+    @Published var isLoading: Bool = true
     
     init(url: URL) {
         self.url = url
