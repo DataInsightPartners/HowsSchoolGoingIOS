@@ -18,20 +18,20 @@ struct LoadingView: View {
                     Spacer()
                     HStack {
                         Text("Loading...")
-                            .foregroundColor(Color.gray)
+                            .foregroundColor(Color.white)
                         ActivityIndicatorView(isAnimating: .constant(true), style: .large)
                     }
                     .frame(width: geometry.size.width / 2, height: geometry.size.height / 5)
-                    .background(Color.secondary.colorInvert())
+                    .background(Color.accentColor)
                     .cornerRadius(20)
                     Spacer()
                 }
 
                 Spacer()
             }
-            .disabled(self.isShowing)
         }
         .opacity(self.isShowing ? 1 : 0)
+        .disabled(self.isShowing)
     }
 }
 

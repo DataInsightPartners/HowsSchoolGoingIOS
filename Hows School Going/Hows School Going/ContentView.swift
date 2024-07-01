@@ -10,7 +10,6 @@ import SwiftUI
 struct ContentView: View {
     @StateObject var webViewModel = WebViewModel(url: URL(string: "https://staging.doral.myeducationdata.com/login")!)
     @State private var isLoading = false
-    @State private var loading = true
 
     var body: some View {
         VStack{
