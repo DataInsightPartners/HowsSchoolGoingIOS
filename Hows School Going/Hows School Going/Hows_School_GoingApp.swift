@@ -34,4 +34,5 @@ struct Hows_School_GoingApp: App {
 
 extension Notification.Name {
     static let didReceiveUniversalLink = Notification.Name("didReceiveUniversalLink")
+    static let webViewLoading = Notification.Name("webViewLoading")
 }

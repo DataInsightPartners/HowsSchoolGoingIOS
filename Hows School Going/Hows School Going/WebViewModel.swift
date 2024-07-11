@@ -15,4 +15,3 @@ class WebViewModel: ObservableObject {
         self.url = url
     }
 }
-
