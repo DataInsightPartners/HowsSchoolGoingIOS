@@ -154,6 +154,8 @@ class PDFViewController: UIViewController, PDFViewDelegate {
         
         if let scrollView = pdfView.subviews.first as? UIScrollView {
             scrollView.delegate = scrollViewDelegate
+            scrollView.maximumZoomScale = 4.0
+            scrollView.minimumZoomScale = 1.0
         }
     }
     
@@ -231,6 +233,7 @@ class PDFViewController: UIViewController, PDFViewDelegate {
         pdfView.minScaleFactor = widthRatio
         pdfView.maxScaleFactor = widthRatio * 4
         
+        // Ensure the content is positioned correctly after scaling
         pdfView.layoutDocumentView()
     }
     
@@ -284,5 +287,9 @@ class ScrollViewDelegate: NSObject, UIScrollViewDelegate {
     
     func scrollViewDidScroll(_ scrollView: UIScrollView) {
         updateHandler()
+    }
+    
+    func viewForZooming(in scrollView: UIScrollView) -> UIView? {
+        return scrollView.subviews.first
     }
 }
