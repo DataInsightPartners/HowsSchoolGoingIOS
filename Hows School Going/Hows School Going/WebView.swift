@@ -104,6 +104,7 @@ class PDFViewController: UIViewController, PDFViewDelegate {
     private var shareButton: UIButton!
     private var pageLabel: UILabel!
     private var scrollViewDelegate: ScrollViewDelegate?
+    private var initialZoomDone = false
     
     init(document: PDFDocument) {
         super.init(nibName: nil, bundle: nil)
@@ -128,7 +129,10 @@ class PDFViewController: UIViewController, PDFViewDelegate {
     
     override func viewDidLayoutSubviews() {
         super.viewDidLayoutSubviews()
-        adjustPDFScale()
+        if !initialZoomDone {
+            adjustPDFScale()
+            initialZoomDone = true
+        }
     }
     
     private func setupPDFView() {
@@ -291,5 +295,9 @@ class ScrollViewDelegate: NSObject, UIScrollViewDelegate {
     
     func viewForZooming(in scrollView: UIScrollView) -> UIView? {
         return scrollView.subviews.first
+    }
+    
+    func scrollViewDidEndZooming(_ scrollView: UIScrollView, with view: UIView?, atScale scale: CGFloat) {
+        // This method is called when zooming ends. You can add custom behavior here if needed.
     }
 }
