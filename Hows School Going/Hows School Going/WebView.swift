@@ -10,6 +10,7 @@ import SwiftUI
 import WebKit
 import PDFKit
 import UniformTypeIdentifiers
+import QuickLook
 
 
 struct WebView: UIViewRepresentable {
@@ -74,9 +75,17 @@ struct WebView: UIViewRepresentable {
         }
         
         func webView(_ webView: WKWebView, decidePolicyFor navigationAction: WKNavigationAction, decisionHandler: @escaping (WKNavigationActionPolicy) -> Void) {
-            if let url = navigationAction.request.url, url.pathExtension.lowercased() == "pdf" {
-                decisionHandler(.cancel)
-                downloadAndPresentPDF(url: url)
+            if let url = navigationAction.request.url {
+                let fileExtension = url.pathExtension.lowercased()
+                if fileExtension == "pdf" {
+                    decisionHandler(.cancel)
+                    downloadAndPresentPDF(url: url)
+                } else if fileExtension == "docx" {
+                    decisionHandler(.cancel)
+                    downloadAndPresentDocX(url: url)
+                } else {
+                    decisionHandler(.allow)
+                }
             } else {
                 decisionHandler(.allow)
             }
@@ -98,6 +107,37 @@ struct WebView: UIViewRepresentable {
                     }
                 }
             }.resume()
+        }
+        
+        func downloadAndPresentDocX(url: URL) {
+             URLSession.shared.downloadTask(with: url) { (tempURL, response, error) in
+                 guard let tempURL = tempURL else { return }
+                 
+                 let documentsURL = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask)[0]
+                 let destinationURL = documentsURL.appendingPathComponent(url.lastPathComponent)
+                 
+                 do {
+                     if FileManager.default.fileExists(atPath: destinationURL.path) {
+                         try FileManager.default.removeItem(at: destinationURL)
+                     }
+                     try FileManager.default.moveItem(at: tempURL, to: destinationURL)
+                     
+                     DispatchQueue.main.async {
+                         let docxViewController = DocXViewController(documentURL: destinationURL)
+                         self.presentViewController(docxViewController)
+                     }
+                 } catch {
+                     print("Error handling DocX file: \(error)")
+                 }
+             }.resume()
+         }
+         
+        private func presentViewController(_ viewController: UIViewController) {
+            if let windowScene = UIApplication.shared.connectedScenes.first as? UIWindowScene,
+               let window = windowScene.windows.first,
+               let rootViewController = window.rootViewController {
+                rootViewController.present(viewController, animated: true, completion: nil)
+            }
         }
     }
 }
