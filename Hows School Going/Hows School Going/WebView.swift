@@ -89,7 +89,9 @@ struct WebView: UIViewRepresentable {
                         if let pdfDocument = PDFDocument(data: data) {
                             let pdfViewController = PDFViewController(document: pdfDocument)
                             
-                            if let rootViewController = UIApplication.shared.windows.first?.rootViewController {
+                            if let windowScene = UIApplication.shared.connectedScenes.first as? UIWindowScene,
+                               let window = windowScene.windows.first,
+                               let rootViewController = window.rootViewController {
                                 rootViewController.present(pdfViewController, animated: true, completion: nil)
                             }
                         }
