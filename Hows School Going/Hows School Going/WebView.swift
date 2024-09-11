@@ -9,6 +9,8 @@
 import SwiftUI
 import WebKit
 import PDFKit
+import UniformTypeIdentifiers
+
 
 struct WebView: UIViewRepresentable {
     @ObservedObject var viewModel: WebViewModel
@@ -105,25 +107,25 @@ class PDFViewController: UIViewController, PDFViewDelegate {
     private var pageLabel: UILabel!
     private var scrollViewDelegate: ScrollViewDelegate?
     private var initialZoomDone = false
-    
+
     init(document: PDFDocument) {
         super.init(nibName: nil, bundle: nil)
         pdfView = PDFView()
         pdfView.document = document
     }
-    
+
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
-    
+
     override func viewDidLoad() {
         super.viewDidLoad()
-        
+
         setupPDFView()
         setupCloseButton()
         setupShareButton()
         setupPageLabel()
-        
+
         updatePageLabel()
     }
     
@@ -262,18 +264,54 @@ class PDFViewController: UIViewController, PDFViewDelegate {
     @objc private func shareTapped() {
         guard let document = pdfView.document else { return }
         
+        let activityIndicator = UIActivityIndicatorView(style: .medium)
+        activityIndicator.center = view.center
+        view.addSubview(activityIndicator)
+        activityIndicator.startAnimating()
+        
+        DispatchQueue.global(qos: .userInitiated).async {
+            if let pdfData = document.dataRepresentation() {
+                DispatchQueue.main.async {
+                    self.showShareOptions(for: pdfData)
+                    activityIndicator.stopAnimating()
+                    activityIndicator.removeFromSuperview()
+                }
+            } else {
+                DispatchQueue.main.async {
+                    self.showAlert(message: "Unable to prepare PDF for sharing.")
+                    activityIndicator.stopAnimating()
+                    activityIndicator.removeFromSuperview()
+                }
+            }
+        }
+    }
+
+    private func showShareOptions(for pdfData: Data) {
         let tempURL = FileManager.default.temporaryDirectory.appendingPathComponent("shared_document.pdf")
         
-        if document.write(to: tempURL) {
+        do {
+            try pdfData.write(to: tempURL)
+            
             let activityViewController = UIActivityViewController(activityItems: [tempURL], applicationActivities: nil)
             
             if let popover = activityViewController.popoverPresentationController {
-                popover.sourceView = shareButton
-                popover.sourceRect = shareButton.bounds
+                popover.sourceView = self.shareButton
+                popover.sourceRect = self.shareButton.bounds
             }
             
-            present(activityViewController, animated: true, completion: nil)
+            self.present(activityViewController, animated: true) {
+                // Clean up the temporary file after presenting the share sheet
+                try? FileManager.default.removeItem(at: tempURL)
+            }
+        } catch {
+            print("Error: Failed to write PDF data to temporary file: \(error)")
+            // Here you could show an alert to the user
         }
+    }
+    private func showAlert(message: String) {
+        let alert = UIAlertController(title: "Error", message: message, preferredStyle: .alert)
+        alert.addAction(UIAlertAction(title: "OK", style: .default, handler: nil))
+        present(alert, animated: true, completion: nil)
     }
     
     // MARK: - PDFViewDelegate
@@ -299,5 +337,18 @@ class ScrollViewDelegate: NSObject, UIScrollViewDelegate {
     
     func scrollViewDidEndZooming(_ scrollView: UIScrollView, with view: UIView?, atScale scale: CGFloat) {
         // This method is called when zooming ends. You can add custom behavior here if needed.
+    }
+}
+
+// SwiftUI wrapper for PDFViewController
+struct PDFViewControllerWrapper: UIViewControllerRepresentable {
+    let document: PDFDocument
+
+    func makeUIViewController(context: Context) -> PDFViewController {
+        return PDFViewController(document: document)
+    }
+
+    func updateUIViewController(_ uiViewController: PDFViewController, context: Context) {
+        // Update the view controller if needed
     }
 }
