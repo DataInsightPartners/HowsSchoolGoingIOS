@@ -18,7 +18,7 @@
 		635E02372C25027A00987F9B /* Hows_School_GoingUITestsLaunchTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 635E02362C25027A00987F9B /* Hows_School_GoingUITestsLaunchTests.swift */; };
 		635E02462C25031800987F9B /* WebView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 635E02452C25031800987F9B /* WebView.swift */; };
 		63E7DD2E2C2F598100F53E64 /* WebViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 63E7DD2D2C2F598100F53E64 /* WebViewModel.swift */; };
-		63E7DD322C925B9900F53E64 /* DocXViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 63E7DD312C925B9900F53E64 /* DocXViewController.swift */; };
+		63E7DD322C925B9900F53E64 /* QuickLookViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 63E7DD312C925B9900F53E64 /* QuickLookViewController.swift */; };
 		63E7DD342C925EA700F53E64 /* PDFViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 63E7DD332C925EA700F53E64 /* PDFViewController.swift */; };
 		63E7DD362C925F1B00F53E64 /* ScrollViewDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 63E7DD352C925F1B00F53E64 /* ScrollViewDelegate.swift */; };
 /* End PBXBuildFile section */
@@ -56,7 +56,7 @@
 		635E02452C25031800987F9B /* WebView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WebView.swift; sourceTree = "<group>"; };
 		635E02472C25E8B700987F9B /* Hows School Going.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = "Hows School Going.entitlements"; sourceTree = "<group>"; };
 		63E7DD2D2C2F598100F53E64 /* WebViewModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WebViewModel.swift; sourceTree = "<group>"; };
-		63E7DD312C925B9900F53E64 /* DocXViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DocXViewController.swift; sourceTree = "<group>"; };
+		63E7DD312C925B9900F53E64 /* QuickLookViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = QuickLookViewController.swift; sourceTree = "<group>"; };
 		63E7DD332C925EA700F53E64 /* PDFViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PDFViewController.swift; sourceTree = "<group>"; };
 		63E7DD352C925F1B00F53E64 /* ScrollViewDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScrollViewDelegate.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -115,7 +115,7 @@
 				63E7DD352C925F1B00F53E64 /* ScrollViewDelegate.swift */,
 				63E7DD2D2C2F598100F53E64 /* WebViewModel.swift */,
 				63E7DD332C925EA700F53E64 /* PDFViewController.swift */,
-				63E7DD312C925B9900F53E64 /* DocXViewController.swift */,
+				63E7DD312C925B9900F53E64 /* QuickLookViewController.swift */,
 				635E021B2C25027800987F9B /* ContentView.swift */,
 				63364C212C2B935800291CED /* UIActivityIndicator.swift */,
 				63364C232C2B938E00291CED /* LoadingView.swift */,
@@ -286,7 +286,7 @@
 				63E7DD362C925F1B00F53E64 /* ScrollViewDelegate.swift in Sources */,
 				63E7DD342C925EA700F53E64 /* PDFViewController.swift in Sources */,
 				635E021C2C25027800987F9B /* ContentView.swift in Sources */,
-				63E7DD322C925B9900F53E64 /* DocXViewController.swift in Sources */,
+				63E7DD322C925B9900F53E64 /* QuickLookViewController.swift in Sources */,
 				635E021A2C25027800987F9B /* Hows_School_GoingApp.swift in Sources */,
 				63364C242C2B938E00291CED /* LoadingView.swift in Sources */,
 			);

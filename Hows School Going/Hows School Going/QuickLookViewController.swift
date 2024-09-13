@@ -1,5 +1,5 @@
 //
-//  DocXViewController.swift
+//  QuickLookViewController.swift
 //  Hows School Going
 //
 //  Created by Erik Gomez on 9/11/24.
@@ -9,7 +9,7 @@ import SwiftUI
 import UIKit
 import QuickLook
 
-class DocXViewController: UIViewController, QLPreviewControllerDataSource {
+class QuickLookViewController: UIViewController, QLPreviewControllerDataSource {
     private var documentURL: URL
     private var previewController: QLPreviewController!
     private var closeButton: UIButton!
@@ -111,15 +111,15 @@ class DocXViewController: UIViewController, QLPreviewControllerDataSource {
     }
 }
 
-// SwiftUI wrapper for DocXViewController
-struct DocXViewControllerWrapper: UIViewControllerRepresentable {
+// SwiftUI wrapper for QuickLookViewController
+struct QuickLookViewControllerWrapper: UIViewControllerRepresentable {
     let documentURL: URL
 
-    func makeUIViewController(context: Context) -> DocXViewController {
-        return DocXViewController(documentURL: documentURL)
+    func makeUIViewController(context: Context) -> QuickLookViewController {
+        return QuickLookViewController(documentURL: documentURL)
     }
 
-    func updateUIViewController(_ uiViewController: DocXViewController, context: Context) {
+    func updateUIViewController(_ uiViewController: QuickLookViewController, context: Context) {
         // Update the view controller if needed
     }
 }
