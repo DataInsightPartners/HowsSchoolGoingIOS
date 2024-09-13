@@ -80,9 +80,12 @@ struct WebView: UIViewRepresentable {
                 if fileExtension == "pdf" {
                     decisionHandler(.cancel)
                     downloadAndPresentPDF(url: url)
-                } else if fileExtension == "docx" {
+                } else if (fileExtension == "docx"
+                           || fileExtension == "doc"
+                           || fileExtension == "xlsx"
+                           || fileExtension == "xls") {
                     decisionHandler(.cancel)
-                    downloadAndPresentDocX(url: url)
+                    downloadAndPresentQuickLook(url: url)
                 } else {
                     decisionHandler(.allow)
                 }
@@ -109,7 +112,7 @@ struct WebView: UIViewRepresentable {
             }.resume()
         }
         
-        func downloadAndPresentDocX(url: URL) {
+        func downloadAndPresentQuickLook(url: URL) {
              URLSession.shared.downloadTask(with: url) { (tempURL, response, error) in
                  guard let tempURL = tempURL else { return }
                  
@@ -123,11 +126,11 @@ struct WebView: UIViewRepresentable {
                      try FileManager.default.moveItem(at: tempURL, to: destinationURL)
                      
                      DispatchQueue.main.async {
-                         let docxViewController = DocXViewController(documentURL: destinationURL)
-                         self.presentViewController(docxViewController)
+                         let quickLookViewController = QuickLookViewController(documentURL: destinationURL)
+                         self.presentViewController(quickLookViewController)
                      }
                  } catch {
-                     print("Error handling DocX file: \(error)")
+                     print("Error handling QuickLook file: \(error)")
                  }
              }.resume()
          }
