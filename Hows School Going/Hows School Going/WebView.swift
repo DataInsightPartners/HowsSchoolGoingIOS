@@ -75,21 +75,34 @@ struct WebView: UIViewRepresentable {
         }
         
         func webView(_ webView: WKWebView, decidePolicyFor navigationAction: WKNavigationAction, decisionHandler: @escaping (WKNavigationActionPolicy) -> Void) {
-            if let url = navigationAction.request.url {
-                let fileExtension = url.pathExtension.lowercased()
-                if fileExtension == "pdf" {
-                    decisionHandler(.cancel)
-                    downloadAndPresentPDF(url: url)
-                } else if (fileExtension == "docx"
-                           || fileExtension == "doc"
-                           || fileExtension == "xlsx"
-                           || fileExtension == "xls") {
-                    decisionHandler(.cancel)
-                    downloadAndPresentQuickLook(url: url)
+            guard let url = navigationAction.request.url else {
+                decisionHandler(.allow)
+                return
+            }
+
+            let allowedDomains = ["myeducationdata.com", "howsschoolgoing.com"]
+            
+            // Check if this is a main frame navigation (user clicked a link)
+            if navigationAction.targetFrame?.isMainFrame == true {
+                if allowedDomains.contains(where: { url.host?.contains($0) == true }) {
+                    // URL is from allowed domains, handle it within the app
+                    let fileExtension = url.pathExtension.lowercased()
+                    if fileExtension == "pdf" {
+                        decisionHandler(.cancel)
+                        downloadAndPresentPDF(url: url)
+                    } else if ["docx", "doc", "xlsx", "xls"].contains(fileExtension) {
+                        decisionHandler(.cancel)
+                        downloadAndPresentQuickLook(url: url)
+                    } else {
+                        decisionHandler(.allow)
+                    }
                 } else {
-                    decisionHandler(.allow)
+                    // URL is external, open in Safari
+                    decisionHandler(.cancel)
+                    UIApplication.shared.open(url, options: [:], completionHandler: nil)
                 }
             } else {
+                // This is not a main frame navigation, likely an asset or resource
                 decisionHandler(.allow)
             }
         }
